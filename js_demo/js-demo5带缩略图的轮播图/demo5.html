@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>带缩略图的轮播图（数组的办法）</title>
+  <!-- 设置css样式 -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0px
+    }
+
+    /* 包裹层的css设置 */
+    .wrapper {
+      width: 550px;
+      height: 500px;
+      margin: 20px auto;
+      background: url(img/1.jpg) no-repeat;
+      /* 这里不是background0-img */
+      background-size: 100% 100%;
+      position: relative;
+      border: 1px solid green;
+    }
+
+    .picBox {
+      width: 500px;
+      height: 400px;
+      border: 1px solid grey;
+      margin: 0 auto;
+    }
+
+    .picBox img {
+      width: 500px;
+      height: 400px;
+    }
+
+    h1 {
+      text-align: center;
+      color: black;
+
+    }
+
+    .changeButton {
+      width: 500px;
+      height: 40px;
+      position: absolute;
+      top: 220px;
+      left: 25px;
+    }
+
+    .changeButton span {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: orange;
+      overflow: hidden;
+      line-height: 40px;
+      text-align: center;
+      opacity: 0.5;
+      font-size: 30px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .changeButton span:hover {
+      opacity: 1;
+    }
+
+    .buttonL {
+      float: left;
+    }
+
+    .buttonR {
+      float: right;
+    }
+
+    .circleB {
+      width: 200px;
+      height: 20px;
+      position: absolute;
+      bottom: 20px;
+      left: 190px;
+      /* border:1px solid red; */
+    }
+
+    .circleB span {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      cursor: pointer;
+      margin-left: 10px;
+      border: 1px solid gold;
+      position: relative;
+    }
+
+    /* 留着为了script里面用的。给每个添加样式 */
+    .active {
+      background-color: red;
+    }
+
+    /* 缩略框图片框框的位置 ,直接放在span里面，然后给span一个relative，然后让这个div浮动出去。*/
+    /* 不知道别人是怎么设置的 */
+    .circleB span div {
+      width: 50px;
+      height: 50px;
+      border: 1px solid green;
+      position: absolute;
+      top: -55px;
+      left: -15px;
+      display: none;
+
+    }
+
+    .circleB span div img {
+      width: 50px;
+      height: 50px;
+      border: 1px solid gold;
+    }
+  </style>
+
+  <!-- 开始设置script -->
+  <script>
+    window.onload = function () {
+      // 图片数组
+      var arrPic = ["img/1.jpg", "img/2.jpg", "img/3.jpg", "img/4.jpg", "img/5.jpg"];
+      var num = 0;
+      // 获取一系列元素
+      var buttonLeft = document.getElementsByClassName("buttonL")[0];
+      var buttonRight = document.getElementsByClassName("buttonR")[0];
+      var circleButton = document.getElementsByClassName("circleB")[0];
+      // 图片区域的元素
+      var picBox = document.getElementsByClassName("picBox")[0];
+      var img = picBox.getElementsByTagName("img")[0];
+      var littleButton = circleButton.getElementsByTagName("span");  //是一个数组
+      // 获取最外面的div
+      var wrapper = document.getElementsByClassName("wrapper")[0];
+
+
+      // 添加点击事件
+      buttonLeft.onclick = function () {
+        if (num == 0) {
+          //如果是0张，那么就直接跳转到第五张，在数组里面就是第四张，同时这里还要设置小圆点的背景
+          num = arrPic.length - 1;
+        } else {
+          num--;
+        }
+        // 下面一串代码可以打包
+        for (var i = 0; i < littleButton.length; i++) {
+          littleButton[i].className = "";
+        }
+        img.src = arrPic[num];
+        littleButton[num].className = "active";
+
+      } //end buttonR click
+
+
+
+      buttonRight.onclick = function () {
+        if (num == arrPic.length - 1) {
+          num = 0;
+        } else {
+          num++;
+        }
+        // 下面一串代码可以打包
+        for (var i = 0; i < littleButton.length; i++) {
+          littleButton[i].className = "";
+        }
+        img.src = arrPic[num];
+        littleButton[num].className = "active";
+
+      } //end buutonL click;
+
+
+      // 给下面的span注册点击和鼠标进入，鼠标出去事件
+      for (var i = 0; i < littleButton.length; i++) {
+        littleButton[i].index = i;
+        littleButton[i].onclick = function () {
+          for (var i = 0; i < littleButton.length; i++) {
+            littleButton[i].className = ""
+          }
+          //  console.log("hello world")  //测试代码
+          img.src = arrPic[this.index];
+          this.className = "active";
+
+        }
+        // 注册鼠标进入事件
+        littleButton[i].onmouseover = function () {
+          this.getElementsByTagName("div")[0].style.display = "block";
+        }
+        // 注册鼠标离开事件
+        littleButton[i].onmouseout = function () {
+          this.getElementsByTagName("div")[0].style.display = "none";
+        }
+
+      }
+
+
+    } //end windwo onload
+
+  </script>
+
+</head>
+
+<body>
+  <!-- 最外面的包裹层 -->
+  <div class="wrapper">
+    <h1>带缩略图的轮播图</h1>
+    <!-- 图片区域 -->
+    <div class="picBox">
+      <img src="img/1.jpg" alt="">
+    </div>
+    <!-- 中间的切换按钮 -->
+    <div class="changeButton">
+      <span class="buttonL">&lt</span><span class="buttonR">&gt</span>
+    </div>
+    <!-- 最下面的滚动小圆圈 -->
+    <!-- 这样写的好处，是为了，获取到小圆点之后，直接让下面的div显示出来就可以了。 -->
+    <div class="circleB">
+      <span class="active">
+        <div><img src="img/1.jpg" alt="">
+        </div>
+      </span>
+
+      <span>
+        <div><img src="img/2.jpg" alt=""></div>
+      </span>
+      <span>
+        <div><img src="img/3.jpg" alt=""></div>
+      </span>
+      <span>
+        <div><img src="img/4.jpg" alt=""></div>
+      </span>
+      <span>
+        <div><img src="img/5.jpg" alt=""></div>
+      </span>
+    </div>
+    <!-- 设置缩略图的样式，用的是相对定位 ，为了后续好利用索引，还是可以把缩略放在一个div里面设置的。-->
+
+
+
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>模拟手机发短信</title>
+    <style>
+        /* 设置手机样式 */
+    *{padding: 0;
+    margin: 0;
+    }
+    .phone{
+        width:250px;
+        height:500px;
+        margin: 0 auto;
+        border: 1px solid gold;
+        border-radius: 10px;
+    }
+    .screen{
+        width:200px;
+        height:400px;
+        margin: 20px auto;
+        border: 2px solid black;
+    }
+    .circle{
+        width:30px;
+        height: 30px;
+        border-radius: 50%;
+        margin: 0 auto;
+        
+        border: 2px solid goldenrod;
+    }
+    .contentBox{
+    width: 100%;
+    height:90%;
+    border-bottom: 1px solid grey;
+    overflow: auto;
+
+
+    }
+    .sendBox{
+        width:100%;
+        height: 10%
+       
+        
+        
+    }
+    .sendBox span{
+        display: inline-block;
+        width: 30px;
+        height:30px;
+        border:1px solid grey;
+        margin: 5px;
+    }
+    .sendBox span img{
+        width:30px;
+        height: 30px;
+        }
+        .sendBox input{
+            margin-bottom: 10px;
+            vertical-align: bottom;
+            margin-bottom: 5px;
+            border: none;
+        }
+    .sendBox .inputcontent{
+        width:100px;
+        height:30px;
+       
+        border: none;
+        border: 1px solid grey;
+        box-sizing: border-box;
+    }
+    ul li{
+        list-style: none;
+       
+    }
+    .sendBox .sendButton{
+        width:40px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        /* border: 1px solid yellowgreen; */
+        font-size: 18px;
+    }
+    /* 设置添加样式的css */
+    /* 用户1的样式 */
+    .user1{
+        overflow: hidden;
+        margin-top: 5px;
+    }
+  .user1 span{
+      float:left;
+      display: inline-block;
+      width: 30px;
+      height: 30px;;
+
+  }
+  span img{
+      width: 30px;
+      height: 30px;
+  }
+  .user1 .inputC{
+   background-color: aqua;
+   float: left;
+   max-width: 150px;
+
+  }
+  /* 用户2的样式 */
+.user2{
+    overflow: hidden;
+    margin-top: 5px;
+}
+  .user2 span{
+    float:right;
+      display: inline-block;
+      width: 30px;
+      height: 30px;;
+}
+.user2 .inputC1{
+    background-color: brown;
+    float: right;
+    max-width: 150px;;
+}
+
+
+
+
+    
+    
+    
+    </style>
+</head>
+
+<body>
+
+    <div class="phone">
+        <div class="screen">
+            <ul class="contentBox ">
+<!-- 在这类给内容添加两种不同的li标签，后续通过innerHtml添加内容.这是一个模板 -->
+                 <!-- <li class="user1">
+                    <span><img src="male.png" alt=""></span>
+                    <div class="inputC">hello worldhello world hello world</div>
+
+                </li>
+                <li class="user2">
+    <span><img src="female.png" alt=""></span>
+    <div class="inputC1">HELLO WORLDhello worldhello world hello world</div>
+
+                </li> -->
+            </ul>
+            <div class="sendBox ">
+                <span class="picLogo"><img src="male.png" alt=""></span>
+                <input type="text" class="inputcontent"><input type="button" value="发送" class="sendButton">
+
+            </div>
+        </div>
+        <div class="circle"></div>  
+        
+
+    </div>
+
+    <script> 
+
+    // 切换头像
+    var changePic =document.getElementsByClassName("picLogo")[0];
+    var changeImg=document.getElementsByTagName("img")[0];
+    var onOff =true;  //为了切换图像
+
+    changePic.onclick=function(){
+        if(onOff){
+            changeImg.src="female.png"
+        }else{
+            changeImg.src="male.png"
+        }
+        onOff = !onOff; //这里一定是要！onff啊。如果设置为false。就跳不了其他状态了。
+    }
+// 开始给屏幕添加内容
+// 获取发送按钮和内容区域的按钮
+var sendButton =document.getElementsByClassName("sendButton")[0];
+var contentBox =document.getElementsByClassName("contentBox")[0];
+var inputcontent =document.getElementsByClassName("inputcontent")[0];
+sendButton.onclick =function(){
+    // 里面涉及到一个判断的问题。如果是用户1就是左边，如果是用户2就是右边。
+  if(inputcontent.value ==""){
+      alert("不能发送");
+  }else{
+    if(onOff){
+        contentBox.innerHTML +='<li class="user1"><span><img src="male.png" alt="test"></span><div class="inputC">'+inputcontent.value+'</div></li>';
+
+    }else{
+        contentBox.innerHTML +='<li class="user2 "><span><img src="female.png" alt=""></span><div class="inputC1">'+inputcontent.value+'</div></li>';
+    }
+    // 如果发送之后，有一个就是清空输入框
+    inputcontent.value ="";
+    // 如果你输入的内容很少的，就需要清除浮动的问题。
+
+  }
+    
+   
+}
+var circle =document.getElementsByClassName("circle")[0];
+circle.onclick=function(){
+    contentBox.innerHTML ="";
+}
+    
+    
+    //虽然做完了，但是感觉代码恶心。
+//注意点大概就是设置一个开关。这个思想似乎很有用。
+//然后清除浮动。
+    
+    </script>
+
+</body>
+
+</html>

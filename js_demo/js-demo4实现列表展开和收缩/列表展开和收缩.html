@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>列表的展开和收缩</title>
+    <style>
+   p, ul,li{
+        list-style: none;
+        margin:0;
+        padding: 0;
+    }
+    .wrapper{
+        width: 200px;
+        height: 500px;
+        margin: 0 auto;
+        border: 1px solid grey;
+    }
+.wrapper li div{
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    border-top: 1px solid rgb(19, 2, 2);
+    border-bottom: 1px solid rgb(8, 2, 2);
+    text-indent: 30px;
+    font-size: 20px;
+    background: url("right.png") no-repeat 0 0 ;
+    background-color: aqua;
+    /* background-image，background-repeat，backgroundf-position */
+    background-size: 40px 40px;
+    cursor: pointer;
+}
+
+  .wrapper  li div.down{
+    background: url("down.png") no-repeat 0 0 ;
+    background-color: brown;
+    background-size: 40px 40px;
+}
+
+
+
+.wrapper li ul li{
+    height: 20px;
+    line-height: 20px;
+    border-bottom: 1px solid grey;
+    text-indent: 5px;
+    cursor: pointer;
+    }
+    .wrapper li ul{
+        display: none;
+    }
+    </style>
+<!--
+    上面的样式设置的怪怪的 ，主要是为了用到自定义属性。 -->
+    <script>
+    // 获取每一个主栏目的，然后注册点击事件
+window.onload = function(){
+    var wrapper =document.getElementsByClassName("wrapper")[0];
+    var oDiv =wrapper.getElementsByTagName("div");
+    var oUl= wrapper.getElementsByTagName("ul");
+    var aLi =null;
+    var arrLi =[];
+
+
+
+
+    //里面一个排他事件。
+    for(var i =0;i<oDiv.length;i++){
+        oDiv[i].index=i;
+       oDiv[i].onclick=function(){
+            if(this.className==""){
+                for(var  i=0;i<oUl.length;i++){
+                    oUl[i].style.display ="none";
+                }
+                for(var j =0;j <oDiv.length;j++){
+                    oDiv[j].className ="none";
+                }
+                this.className ="down";
+            oUl[this.index].style.display ="block";
+            }else{
+                this.className="";
+                oUl[this.index].style.display ="none";
+            }
+        }
+    }
+
+
+     //设置里li标签的高亮显示,这一整步，仅仅是为了用一个很奇怪的办法找到li标签。
+     //找标签这件事还是很重要的。
+     for(var i =0;i<oUl.length;i++){
+        aLi= oUl[i].getElementsByTagName("li");
+        for(var j =0;j<aLi.length;j++){
+            arrLi.push(aLi[j]) //装到一个数组里面，以便后续使用。
+        }
+     }
+
+//设置点击高亮，然后排他。
+  for(var i =0; i <arrLi.length;i++){
+      arrLi[i].onclick= function(){
+        for(var i =0;i <arrLi.length ;i ++){
+          arrLi[i].style.backgroundColor ="";
+        }
+          this.style.backgroundColor ="red";
+      }
+  }
+}  //end  onload
+
+
+
+
+    </script>
+
+
+
+</head>
+<body>
+    <!-- 这个小demo里面还主要用的自定义属性的东西 -->
+    <ul class="wrapper">
+        <li >
+            <div >我的好友</div>
+            <ul>
+                <li>张三</li>
+                <li>张三三</li>
+                <li>张三三</li>
+            </ul>
+        </li>
+        <li>
+            <div >企业好友</div>
+            <ul>
+                <li>大公司一号</li>
+                <li>大公司二号</li>
+                <li>大公司三号</li>
+            </ul>
+        </li>
+        <li>
+            <div>黑名单</div>
+            <ul>
+                <li>王五</li>
+                <li>王五</li>
+                <li>王五</li>
+            </ul>
+
+        </li>
+    </ul>
+</body>
+</html>
