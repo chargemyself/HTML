@@ -3,26 +3,29 @@
 
 # css
 ## 基础知识
-1. 引入方法
-* 行间样式：
-  > `<div style="属性：属性值;属性2：属性值">`  
-* 内部样式表:
-  >```<head>
-<style>
-元素选择器{
+### 1.引入方法
++ 行间样式：  
+  `<div style="属性：属性值;属性2：属性值">`  
++ 内部样式表:
+  ```
+  <head>
+  <style>
+  元素选择器{
   属性：属性值
 }
 </style>
 </head>
 ```
-* 外联样式表的引入：
- > ```<head>
-<link rel="stylesheet" type="text/css" href="mystyle.css">
-</head>
++ 外联样式表的引入：
+  ```
+  <head>
+  <link rel="stylesheet" type="text/css" href="mystyle.css">
+ </head>
 ```
 
 
-## 重点知识
+
+
 
 
 
