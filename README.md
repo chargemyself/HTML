@@ -4,19 +4,12 @@
 # css
 ### 1.引入方法
 + 行间样式：  
-  `<div style="属性：属性值;属性2：属性值">`  
-+ 内部样式表放在head里面:  
-  ``
-  <style>
-  元素选择器{
-  属性：属性值
-  }
-</style>
-``
-+ 外联样式表放在head里面：
-``
-  <link rel="stylesheet" type="text/css" href="mystyle.css">
-``
++ 内部样式表放在head里面  
++ 外联样式表放在head里面  
+
+### 2.选择器  
+### 3.常见样式设置
+
 
 
 
