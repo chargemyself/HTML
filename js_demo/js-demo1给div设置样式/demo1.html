@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>demo1-设置样式</title>
+    <style>
+        .setButton{
+        width:100px;
+        height: 50px;
+        background-color: red;
+        color: white;
+        line-height: 50px;
+        font-size: 20px;
+        border:none;
+
+    }
+    .setDiv{
+        width:100px;
+        height: 100px;
+        border:2px solid black;
+    }
+    .setBox{
+        width: 400px;
+        height:400px;
+        position:absolute;
+        top:300px;
+        left:500px;
+        display: none;
+        background-color: darkseagreen
+    }
+    .contentBox{
+        width:300px;
+        height:300px;
+        margin: 0 auto;
+        background-color: white;
+    }
+    .contentBox p{
+        padding: 10px; 
+    }
+    p>input{
+        width:40px;
+        height:20px;
+        line-height: 20px;
+        text-align:center;
+        border: none;
+        border:1px solid grey;
+        cursor: pointer;
+    }
+    input.blueB{
+        background-color: blue;
+    }
+    input.redB{
+        background-color:red;
+    }
+    input.yellowB{
+        background-color:yellow;
+    }
+    .bigButton{
+        width:120px;
+        height:40px;
+        margin:0 auto;
+    }
+    .bigButton>input{
+        width:50px;
+        height:40px; 
+        background-color: blue;
+        color: white;
+    }
+    
+    </style>
+</head>
+
+<body>
+    <h1>请问下面的div设置样式：<input type="button" class="setButton" value="点击设置"></h1>
+    <div class="setDiv"></div>
+    <!-- 设置框。默认是看不进的 -->
+    <div class="setBox">
+        <div class="contentBox">
+            <p>请选择背景颜色：<input type="button" class="blueB" value="蓝色">
+                <input type="button" class="redB" value="红色">
+                <input type="button" class="yellowB" value="黄色"></p>
+            <p>请选择宽（px）:
+                <input type="butoon" class="twoB" value="200">
+                <input type="butoon" class="threeB" value="300">
+                <input type="butoon" class="fourB" value="400">
+            </p>
+            <p>请选择高（px）:
+                <input type="butoon" class="twoB1" value="200">
+                <input type="butoon" class="threeB1" value="300">
+                <input type="butoon" class="fourB1" value="400">
+            </p>
+            <div class="bigButton"><input type="button" value="恢复" class="recoverB">
+                <input type="button" value="确定" class="decB"></div>
+        </div>
+    </div>
+    <script>
+        // 获取点击按钮和设置box的
+        var setB = document.getElementsByClassName("setButton")[0];
+        var setBox = document.getElementsByClassName("setBox")[0];
+        // 获取不同的小按钮设置注册点击事件
+
+        var setDiv = document.getElementsByClassName("setDiv")[0];
+        var setColorBlue = document.getElementsByClassName("blueB")[0];
+        var setColorRed = document.getElementsByClassName("redB")[0];
+        var setColorYellow = document.getElementsByClassName("yellowB")[0];
+        var sethWidthTwo = document.getElementsByClassName("twoB")[0];
+        var sethWidthThree = document.getElementsByClassName("threeB")[0];
+        var sethWidthFour = document.getElementsByClassName("fourB")[0];
+        var setHeightTwo = document.getElementsByClassName("twoB1")[0];
+        var setHeightThree = document.getElementsByClassName("threeB1")[0];
+        var sethHeightFour = document.getElementsByClassName("fourB1")[0];
+        var decButton = document.getElementsByClassName("decB")[0];
+        var recoverButton = document.getElementsByClassName("recoverB")[0];
+
+
+        // <!-- 
+        //     给按钮添加点击事件 -->
+        setB.onclick = function () {
+            setBox.style.display = "block";
+        };
+        setColorBlue.onclick = function () {
+            setDiv.style.backgroundColor = "blue";
+        }
+        setColorRed.onclick = function () {
+            setDiv.style.backgroundColor = "red";
+        }
+        setColorYellow.onclick = function () {
+            setDiv.style.backgroundColor = "yellow";
+        }
+        sethWidthTwo.onclick = function () {
+            setDiv.style.width = "200px";
+        }
+        sethWidthThree.onclick = function () {
+            setDiv.style.width = "300px";
+        }
+        sethWidthFour.onclick = function () {
+            setDiv.style.width = "400px";
+        }
+        setHeightTwo.onclick = function () {
+            setDiv.style.height = "200px";
+        }
+        setHeightThree.onclick = function () {
+            setDiv.style.height = "300px";
+        }
+        sethHeightFour.onclick = function () {
+            setDiv.style.height = "400px";
+        }
+        decButton.onclick = function () {
+            setBox.style.display = "none";
+        }
+        recoverButton.onclick = function () {
+            setDiv.style.width = "100px";
+            setDiv.style.height = "100px";
+            setDiv.style.backgroundColor = "";
+        }
+
+//练习做完了，基本实现了需求，但是感觉如果适用jquery做代码会少很多的。
+
+
+
+    </script>
+</body>
+
+</html>
