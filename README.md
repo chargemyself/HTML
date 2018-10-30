@@ -10,6 +10,14 @@
 ### 2.选择器  
 ### 3.常见样式设置
 
+### 4. 块元素及内联元素 inline-block
++ 块元素：默认独占一行。没有宽高时候，默认撑满一排。
++ 内联元素：不支持宽高，内容撑开。不换行
++ 块级内联元素
+
+
+### 5. 浮动float
+
 
 
 
@@ -18,7 +26,91 @@
 
 
 # javascript
+## 报错
++ syntax  error 语法错误
+
 ## js数据类型
+> 数字number  
+> string  
+> null  
+> undefined  
+> 对象  
+> function
+#### `运算符的优先级问题`
+
+
+## 判断数据类型的四种办法
+
+
+## number用法/parseInt/parseFloat
+
+## 值数据类型和应用数据类型的区别
+## 对象 object
++ 访问方法
+> ![text](img1/1.png)  
+
+## 函数
+>创建一个函数的过程，相当于在全局作用域，开辟一个空间，空间中储存函数体的代码。但是此时的代码都是字符串的字符而已。  
+
+>执行这个函数浏览器就是创建一个供函数代码执行的私有环境=》私有作用域  
+把创建时候空间中存储的字符串拿过来，然后变为真正js表示式代码。
+
+## if/else if/else 判断语句
+测试题
+``` javascript
+var num = parseFloat('width:12.5px');  //NaN
+if(num == 12.5){
+    alert(12.5)
+}else if(num == NaN){  //>NaN ! =NaN  NaN 和自身都是 不相等的
+    alert(NaN);
+}else if(typeof num =="number"){
+    alert(0);
+}else{
+    alert("什么也不是")
+}
+//答案其实是字符串的 0
+```
+## 操作符
+三元运算符
+> 条件？条件成立执行：条件不成立执行；  
+>> + 如果条件成立或者不成立的某一种情况不需要做什么处理，我们空着，语法不符合。使用null，undefined，void 0（就是undefined），占位就可以了。  
+>> + 在三元运算符的操作中不能出现break，continue，return等关键词，无法用三元运算符代替if，else。
+```javascript
+var num =10;
+if(10>5){
+    num ++;
+    console.log("hello world")  //`执行多条操作,用小括号包起来，中间用，（而不是；）分割）`
+}else{
+    console.log("nihhao")
+}
+10 >5?(num++,console.log("hello world")):null;
+// hello world
+```
+>`一元操作符`：只能操作一个值的操作符  
+>+ 递增和递减操作符  
+>> ++number;   
+>> number++;
+
+>+ $$/||/!操作符  
+
+## switch case 判断
+> 应用于if else中一个变量在不同值的情况下的不同操作
+``` javascipt
+var num =10;
+switch(num){//switch 后面小括号中共存放是一个值，一般是我们写变量，把变量储存的值拿来用，可能也是一个计算
+case 1：
+    ...
+    break;
+case 10: //case 后面都是放的值，目的是验证switch后面的值和哪一种case后面的值相等。
+    ...
+    break;
+    defaul：// switch 后面的值和每一种case情况对应的值都不相等，执行最后default。类似else。
+
+}
+```
+## for 循环
+
+
 
 
 ## demo展示

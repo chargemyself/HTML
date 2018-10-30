@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>div居中办法之一</title>
+    <style>
+        /* 方法1： */
+        /* 此方法適用於固定寬高的元素
+        這些屬性要作用在居中元素本身，絕對定位要注意父級的定位 */
+        .wrapper {
+            width: 500px;
+            height: 500px;
+            border: 1px solid red;
+            position: relative
+        }
+
+        .demo1 {
+            width: 200px;
+            height: 100px;
+            background: red;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -50px;
+            margin-left: -100px;
+            text-align: center;
+            line-height: 100px;
+        }
+        /* 方法2 */
+        .demo2{
+            width:200px;
+            height: 100px;
+            background: red;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform:translate(-50%,-50%);
+        }
+      /* 方法3 */
+     .demo3{
+          width: 200px;
+          height: 100px;
+          background: red;
+          position: absolute;
+          top:0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          margin: auto;
+      }
+      /* 方法4 */
+      /* 屬性放在居中元素的父元素上，justify-content設置主軸（x軸）對其方式align-items設置側軸（y軸）對其方式 */
+      .wrapper4{
+          display:flex;
+          align-items:center;
+          justify-content:center;
+      }
+      .demo4{
+          width:200px;
+          height:100px;
+          background: red;
+      }
+
+      /* 方法5 */
+      /* height=line-height；text-align：center；兩個屬性要放在居中元素父級上， */
+     
+      .wrapper5{
+          width: 500px;
+          height:500px;
+          border: 1px solid black;
+          line-height: 500px;
+          text-align: center;
+      }
+      .demo5{
+          width: 200px;
+          height: 100px;
+          background: red;
+          display: inline-block;
+          vertical-align: middle;
+
+      }
+
+      
+
+        
+
+
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <div class="demo1">hello world</div>
+
+    </div>
+    <hr>
+    <div class="wrapper">
+
+        <div class="demo2">方法2</div>
+    </div>
+    <hr>
+    <div class="wrapper">
+        <div class="demo3">方法3</div>
+    </div>
+    <hr>
+    <div class="wrapper wrapper4">
+        <div class="demo4">方法4</div>
+    </div>
+    <hr>
+    <div class="wrapper5">
+
+        <div class="demo5">
+            方法5
+        </div>
+    </div>
+
+
+
+
+</body>
+
+</html>

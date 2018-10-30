@@ -31,3 +31,9 @@
 # github常见指令
 
 # vscode常见指令
+初始化代码：window/alt + shift +f  
+查看md文件：ctrl+shift+v
+
+撤回：ctrl + z  
+
+
