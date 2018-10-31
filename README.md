@@ -31,13 +31,6 @@ inherit:从父级元素继承
 ![content-box](img1/9.png)
 
 
-
-
-
-
-
-
-
 # javascript
 ## 报错
 + syntax  error 语法错误
@@ -65,17 +58,6 @@ inherit:从父级元素继承
 + 访问方法
 > ![text](img1/1.png)  
 
-## 函数
->创建一个函数的过程，相当于在全局作用域，开辟一个空间，空间中储存函数体的代码。但是此时的代码都是字符串的字符而已。  
-
->执行这个函数浏览器就是创建一个供函数代码执行的私有环境=》私有作用域  
-把创建时候空间中存储的字符串拿过来，然后变为真正js表示式代码。
-
-> + 立即执行函数
-```javascript
-1.(funciton(){})();
-2.+/!/~/void(function(){})();
-```
 
 ## if/else if/else 判断语句
 测试题
@@ -129,8 +111,10 @@ var num =(5,1,4,8,0)  //num 为0
 
 
 
-## 流程控制
-[流程控制note](https://github.com/chargemyself/HTML/blob/master/note/for_%E5%BE%AA%E7%8E%AF.md)
+
+
+
+
 
 # DOM
 ## 获取元素
