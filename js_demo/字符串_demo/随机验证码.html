@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>验证码</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0px;
+        }
+
+        .contentBox {
+            width: 100px;
+            height: 100px;
+            border: 1px solid green;
+            margin: 20px auto;
+            line-height: 100px;
+            text-align: center;
+            letter-spacing: 10px;
+            font-size: 200%;
+        }
+
+        .buttonBox {
+            width: 50px;
+            height: 50px;
+            margin: 20px auto;
+            border: 1px solid goldenrod;
+            line-height: 50px;
+            background-color: azure;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="contentBox">ABCD</div>
+    <div class="buttonBox">change</div>
+
+    <script>
+        var content = document.getElementsByClassName("contentBox")[0];
+        var button = document.getElementsByClassName("buttonBox")[0];
+        var areaStr = "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
+        var result = "";
+
+        button.onclick = function () {
+            for (var i = 0; i < 4; i++) {
+                // 1.后去0 - 61之间的随机整数
+                var index = Math.round(Math.random() * 61);
+                //字符串拼接
+                result += areaStr[index];
+            }
+
+            content.innerHTML = result;
+            result = ""; //清空字符串为了下一次重新获取。
+        }
+
+
+
+
+    </script>
+
+</body>
+
+</html>

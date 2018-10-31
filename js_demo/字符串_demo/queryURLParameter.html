@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+    需求是把输入框里面的地址变成对象。 -->
+    <!-- 
+    方法1: -->
+    <script>
+        //str输入一个关键字，上面搜索栏蹦出来的内容。
+        var str = "https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&rsv_idx=2&tn=baiduhome_pg&wd=MDN%20for%E5%BE%AA%E7%8E%AF&rsv_spt=1&oq=MDN&rsv_pq=99807b150000f00c&rsv_t=7813pobYH%2Bn42zlXotXQd8qvGzwAVkrJ1s7y18Y%2B7o6%2FqKAZoJv2mCA44uxZgwPXpUP6&rqlang=cn&rsv_enter=1&rsv_sug3=25&rsv_sug1=12&rsv_sug7=100&rsv_sug2=0&inputT=7594&rsv_sug4=8594"
+        // var questionIndex = str.indexOf("?");
+        // var str = str.substring(questionIndex + 1)
+        // //    console.log(str);
+        // var ary = str.split("&");
+        // var obj = {};
+        // for (var i = 0; i < ary.length; i++) {
+        //     var cur = ary[i];
+        //     var curAry = cur.split("=");
+        //     key = curAry[0];
+        //     value = curAry[1];
+        //     obj[key] = value;
+        // }
+        // console.log(obj);
+
+        function queryURLParameter(url) {
+            var questionIndex = url.indexOf("?"),
+                obj = {};
+            if (questionIndex === -1) {
+                return obj;
+            }
+            url = url.substr(questionIndex + 1);
+            var ary = url.split("&");
+            for (var i = 0; i < ary.length; i++) {
+                var curAry = ary[i].split("=");
+                obj[curAry[0]] = curAry[1]
+            }
+            console.log(obj);
+        }
+
+        queryURLParameter(str)
+
+    </script>
+
+
+
+
+    <!-- 方法2： -->
+
+    <script>
+        //输入javascript上面输入框弹出来的连接
+        var str1 = "https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&rsv_idx=2&tn=baiduhome_pg&wd=javascript&rsv_spt=1&oq=javascript&rsv_pq=b1f3ad1b00017fc2&rsv_t=a9287eqQUIZVThfUegEDqbbW%2BfZGCWaf4u2GAib3OaJjyFabCm3apeRsrX4hZRzhj9bV&rqlang=cn&rsv_enter=0"
+        function myqueryURLParameter(url) {
+            var obj = {},
+                reg = /([^=?&]+)=([^=?&]+)/g;
+            url.replace(reg, function () {
+                var arg = arguments;
+                obj[arg[1]] = arg[2];
+            })
+            console.log(obj)
+
+        }
+        myqueryURLParameter(str1);
+
+
+    </script>
+</body>
+
+</html>

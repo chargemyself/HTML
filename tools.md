@@ -33,6 +33,8 @@
 # vscode常见指令
 初始化代码：window/alt + shift +f  
 查看md文件：ctrl+shift+v
+查找：ctrl +f
+打开命令面板： ctrl+shift + p
 
 撤回：ctrl + z  
 

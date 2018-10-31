@@ -102,4 +102,72 @@ endSlice
 
 
 ```
-![substr eg](img1/14.png)  
+![substr eg](img1/14.png)
+![example](img1/15.png)  
+
+```javascript
+str.toUpperCase()
+ 将调用该方法的字符串值转换为大写形式，并返回。toUpperCase 方法不影响字符串本身的值。
+ str.toLowerCase()
+toLowerCase 会将调用该方法的字符串值转为小写形式，并返回。toLowerCase 不会影响字符串本身的值。
+```
+
+![example](img1/16.png)
+
+
+```javascript
+str.split()
+找到分隔符后，将其从字符串中删除，并将子字符串的数组返回。如果没有找到或者省略了分隔符，则该数组包含一个由整个字符串组成的元素。如果分隔符为空字符串，则将str转换为字符数组。如果分隔符出现在字符串的开始或结尾，或两者都分开，分别以空字符串开头，结尾或两者开始和结束。因此，如果字符串仅由一个分隔符实例组成，则该数组由两个空字符串组成。
+
+如果分隔符是包含捕获括号的正则表达式，则每次分隔符匹配时，捕获括号的结果（包括任何未定义的结果）将被拼接到输出数组中。但是，并不是所有浏览器都支持此功能。
+```
+
+![example](img1/17.png)
+![example](img1/18.png)
+
+```javascript
+str.indexOf(n,index)
+参数：n就是被查找的字符，index从那一位开始找起来（可选）。indexof区分大小写的。
+返回值：指定值的第一次出现的索引; 如果没有找到 -1。
+
+str.lastIndexOf(searchValue[, fromIndex])
+参数：
+searchValue
+一个字符串，表示被查找的值。
+fromIndex
+从调用该方法字符串的此位置处开始查找。可以是任意整数。默认值为 str.length。如果为负值，则被看作 0。如果 fromIndex > str.length，则 fromIndex 被看作 str.length。
+
+```
+![example](img1/19.png)
+
+
+`使用 indexOf 统计一个字符串中某个字母出现的次数`
+```javascript
+var str = 'To be, or not to be, that is the question.';
+var count = 0;
+var pos = str.indexOf('e');
+
+while (pos !== -1) {
+  count++;
+  pos = str.indexOf('e', pos + 1);
+}
+
+console.log(count); // displays 4
+```
+
+```javascript
+str.trim()
+trim() 方法会从一个字符串的两端删除空白字符。trim() 方法并不影响原字符串本身，它返回的是一个新的字符串。
+
+
+var orig = '   foo  ';
+console.log(orig.trim()); // 'foo'
+
+// 另一个.trim()例子，只从一边删除
+
+var orig = 'foo    ';
+console.log(orig.trim()); // 'foo'
+```
+
+
+
