@@ -95,7 +95,10 @@ str.substring(n,m)
 返回值：新的字符串
 
 str.slice(n,m)
-参数：和substring语法一样，但是在与slice支持负数
+参数：beginSlice
+从该索引（以 0 为基数）处开始提取原字符串中的字符。如果值为负数，会被当做 sourceLength + beginSlice 看待，这里的sourceLength 是字符串的长度 (例如， 如果beginSlice 是 -3 则看作是: sourceLength - 3)
+endSlice
+可选。在该索引（以 0 为基数）处结束提取字符串。如果省略该参数，slice会一直提取到字符串末尾。如果该参数为负数，则被看作是 sourceLength + endSlice，这里的 sourceLength 就是字符串的长度(例如，如果 endSlice 是 -3，则是, sourceLength - 3)。
 
 
 ```
