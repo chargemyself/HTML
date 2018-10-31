@@ -59,23 +59,6 @@ inherit:从父级元素继承
 > ![text](img1/1.png)  
 
 
-## if/else if/else 判断语句
-测试题
-``` javascript
-var num = parseFloat('width:12.5px');  //NaN
-if(num == 12.5){
-    alert(12.5)
-}else if(num == NaN){  //>NaN ! =NaN  NaN 和自身都是 不相等的
-    alert(NaN);
-}else if(typeof num =="number"){
-    alert(0);
-}else{
-    alert("什么也不是")
-}
-//答案其实是字符串的 0
-```
-
-## do-while 语句
 
 ## 操作符
 三元运算符
@@ -116,8 +99,6 @@ var num =(5,1,4,8,0)  //num 为0
 
 
 
-# DOM
-## 获取元素
 
 
 ## demo展示

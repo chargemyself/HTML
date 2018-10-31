@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        body,div,ul,li{
+            margin:0;
+            padding: 0;
+            font-family: Arial;
+            font-size:12px;
+        }
+        ul li{
+            list-style:none;
+        }
+        #tab{
+            position:absolute;
+            top:50%;
+            left:50%;
+            padding:10px;
+            margin-left:-460px;
+            margin-top:-145px;
+            width:900px;
+            height:270px;
+            border:1px solid red;
+            border-radius:10px;
+        }
+        #tab li{
+            height:30px;
+            line-height: 30px;
+
+        }
+        #tab li span{
+            width:100px;
+            height:30px;
+            text-align:center;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div id='tab'>
+        <ul>
+            
+        </ul>
+    </div>
+    <script type='text/javascript'>
+        var oTab = document.getElementById('tab');
+        var str = '';
+        str+="<ul>"
+            for(var i = 1;i<=9;i++){
+                var val = "c1";
+                switch(i%3){
+                    case 0:
+                        val = "c1";
+                        break;
+                    case 1:
+                        val = "c2";
+                        break;
+                    default:
+                        val = "c3";
+                }
+                str+="<li class='"+val+"'>";
+                    for(var j = 1;j<=i;j++){
+                        str+="<span>";
+                            str+=""+j+"*"+i+" = "+(j*i)+""
+                        str+="</span>"
+                    }
+                str+="</li>"
+            }
+        str+="</ul>"
+        oTab.innerHTML = str;
+        //字符串拼接的第一条黄金法则：单双不能同时用。必须间隔出现
+        //如果一个字符串中需要增加一个变量，看最外面是""还是'',如果是""，那么直接的"+变量+"。如果是单引号'',那么直接的'"+变量+"'
+    </script>
+</body>
+</html>

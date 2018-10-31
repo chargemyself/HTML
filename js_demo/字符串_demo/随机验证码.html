@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>验证码</title>
+    <title>四位不重复的验证码</title>
     <style>
         * {
             padding: 0;
@@ -42,18 +42,25 @@
         var content = document.getElementsByClassName("contentBox")[0];
         var button = document.getElementsByClassName("buttonBox")[0];
         var areaStr = "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
-        var result = "";
+       
 
         button.onclick = function () {
+            var result = "";
             for (var i = 0; i < 4; i++) {
                 // 1.后去0 - 61之间的随机整数
                 var index = Math.round(Math.random() * 61);
-                //字符串拼接
-                result += areaStr[index];
+                //字符串拼接.为了生成四个不重复的字符串.且忽略大小写。
+                char =areaStr[index];
+                if(result.toLowerCase().indexOf(char.toLowerCase())>-1){
+                    i --;
+                    continue;
+                }
+
+                result += char;
             }
 
             content.innerHTML = result;
-            result = ""; //清空字符串为了下一次重新获取。
+            // result = ""; //清空字符串为了下一次重新获取。如果var result放在function外面
         }
 
 
