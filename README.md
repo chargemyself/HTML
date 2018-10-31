@@ -18,6 +18,19 @@
 
 ### 5. 浮动float
 
+### 6.css3
+> + 盒模型
+![tetx](img1/7.png)
+> + box-sizing属性
+```css3
+content-box :宽度和高度应用到元素的内容框，在宽度和高度之外绘制元素的内边距和边框
+border-box：为元素设定的宽度和高度决定元素的边框盒.
+inherit:从父级元素继承
+```
+![border-box](img1/8.png)
+![content-box](img1/9.png)
+
+
 
 
 
@@ -44,7 +57,10 @@
 
 ## number用法/parseInt/parseFloat
 
-## 值数据类型和应用数据类型的区别
+## 值数据类型和引用数据类型的区别
+> dom元素的深入理解，style是引用类型，backgroundColor是值引用类型。
+![dom操作](img1/10.png)
+
 ## 对象 object
 + 访问方法
 > ![text](img1/1.png)  
@@ -54,6 +70,12 @@
 
 >执行这个函数浏览器就是创建一个供函数代码执行的私有环境=》私有作用域  
 把创建时候空间中存储的字符串拿过来，然后变为真正js表示式代码。
+
+> + 立即执行函数
+```javascript
+1.(funciton(){})();
+2.+/!/~/void(function(){})();
+```
 
 ## if/else if/else 判断语句
 测试题
@@ -90,7 +112,7 @@ if(10>5){
 // hello world
 ```
 >`一元操作符`：只能操作一个值的操作符  
->+ 递增和递减操作符 
+>+ 递增和递减操作符
 >> 后置 递增和递减与前值递增和递减有一个非常的区别，就是递增和递减操作是包含它们的而语法被求职之后才执行的。
 ![text](img1/2.png)  
 ![text](img1/3.png)
@@ -135,7 +157,8 @@ for(设置循环起始值；设置循环的执行条件；步长累加){
 ![text](img1/5.png)
 ![text](img1/6.png)
 
-
+# DOM
+## 获取元素
 
 
 ## demo展示
@@ -144,7 +167,3 @@ for(设置循环起始值；设置循环的执行条件；步长累加){
 3. [模拟短信发送](http://htmlpreview.github.io/?https://github.com/chargemyself/HTML/blob/master/js_demo/js-demo3%E6%A8%A1%E6%8B%9F%E7%9F%AD%E4%BF%A1%E5%8F%91%E9%80%81/demo3.html)js-demo3
 4. [实现列表展开和收缩](http://htmlpreview.github.io/?https://github.com/chargemyself/HTML/blob/master/js_demo/js-demo4%E5%AE%9E%E7%8E%B0%E5%88%97%E8%A1%A8%E5%B1%95%E5%BC%80%E5%92%8C%E6%94%B6%E7%BC%A9/%E5%88%97%E8%A1%A8%E5%B1%95%E5%BC%80%E5%92%8C%E6%94%B6%E7%BC%A9.html)js-demo4
 5. [带缩略图的轮播图](http://htmlpreview.github.io/?https://github.com/chargemyself/HTML/blob/master/js_demo/js-demo5%E5%B8%A6%E7%BC%A9%E7%95%A5%E5%9B%BE%E7%9A%84%E8%BD%AE%E6%92%AD%E5%9B%BE/demo5.html)js-demo5
-
-
-
-
