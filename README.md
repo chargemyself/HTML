@@ -127,26 +127,10 @@ var num1= 1,num2 =2,num3=3;
 var num =(5,1,4,8,0)  //num 为0
 ```
 
-## switch case 判断
-> 应用于if else中一个变量在不同值的情况下的不同操作
->>  switch 和case里面的对比条件是 ===
-``` javascipt
-var num =10;
-switch(num){//switch 后面小括号中共存放是一个值，一般是我们写变量，把变量储存的值拿来用，可能也是一个计算
-case 1：
-    ...
-    break;
-case 10: //case 后面都是放的值，目的是验证switch后面的值和哪一种case后面的值相等。
-    ...
-    break;
-    defaul：// switch 后面的值和每一种case情况对应的值都不相等，执行最后default。类似else。
 
-}
-```
-## for循环
-[for循环](note/for_循环.md)
 
-## for in循环
+## 流程控制
+[流程控制note](https://github.com/chargemyself/HTML/blob/master/note/for_%E5%BE%AA%E7%8E%AF.md)
 
 # DOM
 ## 获取元素
