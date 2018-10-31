@@ -85,15 +85,18 @@ concat 方法将一个或多个字符串与原字符串连接合并，形成一�
 
 
 ```javascript
-str.substr(start[, length])
-参数：
-start
-开始提取字符的位置。如果为负值，则被看作 strLength + start，其中 strLength 为字符串的长度（例如，如果 start 为 -3，则被看作 strLength + (-3)）。
-length
-可选。提取的字符数。
-返回值：
-新的字符串
+下面的都是只可以传一个参数。
+str.substr(n,m)
+参数：从索引n开始，截取m个字符。如果m不传就是直接截取到最后面。
+返回值：新的字符串
+
+str.substring(n,m)
+参数：从索引n开始，截取到索引m处（不包含m），把找到的部分截取
+返回值：新的字符串
+
+str.slice(n,m)
+参数：和substring语法一样，但是在与slice支持负数
+
+
 ```
-![concat eg](img1/14.png)
----------------------
-![sunstr eg](img1/15.png)
+![substr eg](img1/14.png)  
