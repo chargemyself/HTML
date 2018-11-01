@@ -171,3 +171,155 @@ console.log(orig.trim()); // 'foo'
 
 
 
+### 数组的基础结构分析
+>数组也是对象数据类型的。typeOf array  ==》“object”  
+
+>数组也有属性名，只不过属性名是数字，我们把数字属性名称之为它的索引：数组是以数字作为索引，索引从零开始，有一个length带便数组长度。  
+> 类数组：类似于数组，但是不是数组。
++ 通过getElementByClassName等获取的
++ 函数的实参集合arguments也是类数组
+
+![arguments类数组](img1/21.png)
+
+`循环数组中的每一项`
++ for循环
++ for..in循环
+
+```javascript
+for(var key in ary){
+  console.log(ary[key])
+}
+for in 可以把原型上面的公共属性遍历出来。
+for 循环只能遍历一些数组的私有属性。
+
+```
+![for in](img1/22.png)
+
+
+#### 数组中常用的方法
+>+ 方法的意义和作用，
++ 方法的形参
++ 方法的返回值，
++ 通过此方法，原来的数组是否改变。  
+
+`数组的增删改查`  
+===>push 方法 unshift方法
+```javascript
+push：数组末尾追加新内容/unshift：数组开头追加新内容。
+参数：一到多个，任何数据类型都可以，想要给数组末尾追加什么，  
+直接传递到push方法就可以了，传递多个用逗号隔开
+返回值：新增后数组的长度
+原来数组改变了。
+```
+==》ary[ary.length] = 100把数组当成一个对象，设置键值对的办法，往数组末尾添加内容。  
+![demo](img1/23.png)
+
+==>pop方法 shift方法。
+```javascript
+pop方法删除数组最后一项  shift方法删除数组的第一项。
+参数：无。
+返回值：被删除的那一项内容。
+原来数组改变。
+
+shift删除之后，后面每一项的索引都向前进。（导致后面项的索引发生改变）
+```
+
+===》delete方法  
+>>delete ary[索引] 每一项索引是不会改变的。当前数组的length的也不会改变。  
+>>ary.length --:删除数组的最后一项。  
+![text](img1/24.png)
+
+
+===> splice  数组内置方法，可以实现数组的增加，修改，删除。
+```javascript
+splice(n,m):从索引n处开始（包含n）删除m个（m不写就删除到末尾，n不写一项都不删除）
+返回值：被删除的内容（以一个新数组保存）
+原来数组改变。
+splice（0）清空数组
+splice（）一项都不删除，返回一个新的空数组。
+splice（n,m,x)在原删除的基础上，用x代替删除的东西。
+splice（n，0，x）在修改的基础上，一项不删除，把x插入到索引处。返回一个空数组。
+splice（0,0，x）在数组开头添加新内容。
+```
+
+==》slice数组的查询
+
+```javascript
+参数：slice(n,m)从索引n开始找到索引m处（不包含m）
+返回值：找到部分以新数组返回。
+原来数组不改变。
+--slice（n）从索引n开始找到末尾，支持负数索引。。浏览器解析是按照总长度+负数索引来处理的。
+slice（0）/slice()数组克隆，克隆一份和原来的数组一模一样的新数组。
+```
+
+===》concat数组
+```javascript
+参数：要拼接的内容（把内容放在原来数组后面，可以是数组，也可以是一些数据值。
+返回：拼接后的新数组
+原来数组不变。
+不传参数，就是克隆一份。
+```
+
+==》数组转换为字符串
+```javascript
+1.toString  实现数组转换为字符串。原数组不改变
+2.ary.join("+")
+evel(ary.join("+"))
+evel:把字符串变为js表达式。
+
+```
+
+==》实现数组中每一项排序和排列
+
+```javascript
+ary.reverse();
+参数：无
+返回值：排序后的数组
+原来数组改变
+
+ary.sort():实现原来数组的排序
+参数：无或者回调函数
+返回值：排序后的数组
+原有数组改变
+不传递参数情况下，可以给10以内的数字进行升序排列，但是超过10就无法处理。（多位数只是识别第一位。）
+ary.sort(function(a,b)
+{return a-b //升序
+  return b-a; /降序
+});
+
+```
+
+==>验证数组中是否包含某一项。
+```javascript
+indexOf
+lastIndexOf
+获取当前项在数组中第一次或者最后一次出现的位置索引。如果没有就是返回-1。可以验证是否包含这一项。
+但是ie6,7,8不兼容。字符串这几个方法就是都兼容。
+
+Array.prototype.myIndexOf =function(value){
+  var result =-1;
+  for(var  i =0;i <this.length;i++){
+    if(value ===this[i]){
+      result = i;
+      break;
+    }
+  }
+  return result;
+}
+ary.myIndexOf(12);
+```
+
+
+==>遍历数组中的每一项。低版本的ie都不兼容
+```javascript
+ary.forEach(funciton(value,index){
+  数组中有多少项，当前回调函数执行多少次，每一次传递进来的value就是当前遍历数组这一项的值，index就是遍历这一项的索引。
+})
+map：遍历数组中每一项，
+ary.map(funciton(value,index){
+  数组中有多少项，当前回调函数执行多少次，每一次传递进来的value就是当前遍历数组这一项的值，index就是遍历这一项的索引。
+  return xxx
+  把当前返回的结果就是把当前遍历这一项修改为xxx
+})
+
+```
