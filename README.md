@@ -50,9 +50,7 @@ inherit:从父级元素继承
 
 ## number用法/parseInt/parseFloat
 
-## 值数据类型和引用数据类型的区别
-> dom元素的深入理解，style是引用类型，backgroundColor是值引用类型。
-![dom操作](img1/10.png)
+
 
 ## 对象 object
 + 访问方法
