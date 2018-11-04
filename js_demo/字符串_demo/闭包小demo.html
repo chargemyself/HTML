@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .div1 {
+            margin: 0 atuo;
+            border: 1px solid red;
+            width: 200px;
+            height: 200px;
+        }
+
+        .span1 {
+            border: 1px solid green;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="div1">
+        <h1>投票吧</h1>
+        <div><button>喜欢</button><span class="span1">0</span></div>
+
+
+    </div>
+    <script>
+        var ObjB = document.getElementsByTagName("button")[0];
+        var ObjS = document.getElementsByTagName("span")[0];
+
+        // 方法1：把count暴露成一个全局变量。弊端是全局变量太多，其实不行的。
+        //    var  count = 0;
+        //     ObjB.onclick =function (){
+        //         // var count = 0; //私有作用域，每次都会重置。只有把var变成一个全局变量
+        //         count +=1;
+        //         ObjS.innerHTML =count;
+        //     }
+
+        // 方法2：利用闭包的机制，用立即执行函数，来保存count，这样内存不好释放。
+        // ~function(){
+        //     var  count = 0;
+        // ObjB.onclick =function (){
+        //     count +=1;
+        //     ObjS.innerHTML =count;
+        //     //ObjS.innerHTML = ++ count;
+        // }
+        // }();
+
+        // ObjB.onclick =(function(){
+        //     var count =0;
+        //     return function (){
+        //         ObjS.innerHTML = ++ count;
+        //     }
+        // })(); //一个自执行函数的表达式，然后，每次点击就是执行return后面的结果。
+
+        // 方法3：利用innerHTML的方式处理：
+        // ObjB.onclick =function(){
+        //     ObjS.innerHTML ++; //如果不给innerHTML赋值，就是获取原来的值。
+        // }
+        // 弊端：没一次都需要把页面内容先转换为字符串，然后在累加，累加完成之后重新添加回去，
+        // 重新添加的时候，浏览器需要重新渲染。
+
+        // 方法4：利用自定义属性来存储(tuijian )
+        ObjB.count = 0;
+        ObjB.onclick = function () {
+            ObjS.innerHTML = ++this.count;
+        }
+    </script>
+
+
+</body>
+
+</html>
