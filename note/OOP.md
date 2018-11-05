@@ -39,7 +39,7 @@ function createJs(name,age){
 ```
 
 >js是一门轻量级的脚本“编程语言”（html+css不属于编程语言，属于标记语言。
-+ .net c# php java 
++ .net c# php java
 + 所有的编程语言都是面向对象开发的--》类的继承，封装，多条。
 + 继承：子类继承父类中的属性和方法。
 + 多态： 当前方法的多种形态。后台语言中：多态包含了重载和重写。
@@ -69,6 +69,7 @@ function CreateJs(name,age){
 };
 var  p1 = new Creatjs("zhhang",18);
 var p2 =new CreatJs("li",15);
+p1.writeJs ===p2.writeJs  ==>true ==>false;
 ```
 
 >构造函数模式目的就是为了创建一个自定义类，并且创建这个类的实例。
@@ -97,3 +98,81 @@ var ary =new Array();//实例创建的方式，构造函数模式执行的方式
 
 ```
 
+`构造函数内部的原理（渡一教程）`
+1. 在函数体最前面隐式的加上this = {}
+2. 执行 this.xxx = xxx;
+3. 隐式的返回this
+
+```javascript
+function Fn(){
+  var num =10；
+  this.x = 100;
+  this.getx = function (){
+    console.log(this.x);
+  }
+
+}
+var f1 = new Fn;
+var f12 =new Fn;
+f1.getx(); //方法中的this是f1；  100.
+var ss = f1.getx;
+ss(); //方法中的this是window undefined
+f1.num  ===》undefined
+```
+`构造函数扩展知识`
+1. 在构造函数模式中，new Fn()执行，如果Fn不需要传递参数的话，后面的小括号可以省略
+2. this问题：在类中出现的this.xxx =xxx;中的this都是当前类的实例，而某一个属性值（方法）中的this需要看方法执行的时候，前面是否有“.”,才知道this是谁。
+3. 类有普通函数的一面，当函数执行的时候，var num其实这是当前形成的私有作用域中的私有变量而已，和我们的f1这个实例没有任何关系，只有this.xxx =xxx才相当于给f1这个实例增加私有的属性和方法，才和我们f1 有关系。
+4. 浏览器在构造函数模式中，浏览器默认会把我们的实例返回（返回的是一个对象数据类型的值），如果我们自己手动写了return返回。
+返回是一个基本数据类型的值，当前实例是不变的，例如：return 100；我们的f1还是当前Fn的实例。
+返回值如果是引用数据类型的值，当前的实例会被自己返回的值给替换掉。例如return {name:"zhang "},我们的f1就不在是Fn的实例了，而是对象{name：“zhang”}；
+5. 如何检测一个实例是否属于这个类 ==》instanceof
+```javascript
+console.log(f1 instanceof Fn)==>true
+console.log(f1 instanceof Array)  ==>false;
+console.log(f1 instanceof Object) ==>true;
+==>因为所有的实例都是对象数据类型的，而每一个对象数据类型都  
+是object这个内置类的实例，所以f1也是它的一个实例。
+==》对于检测数据类型，typeof 有自己的局限性。
+```
+6. f1和f2都是Fn这个类的实例，都用于x和getx两个属性，但是这两个属性是各自的私有属性。  
+f1.getx ===f2.getx    ==》fasle  
+```javascript
+==》in：检测某一个属性是否属于这个对象。attr in object，不管是私有属性还是公有属性，只要存在，用in检测都是true。
+"getx" in f1 ===>true;
+==》hasOwnProperty:用来检测某一个属性是否为这个对象的“私有属性”；这个方法只能检测私有属性。
+f1.hasOwnProperty("getx")==>true;
+function hasPubProperty(obj,attr){
+  // 首先是有这个属性
+  // 然后,不是私有属性
+  // return (attr in obj) && obj.hasOwnProperty(attr) ==="false";
+  return (attr in obj) && !obj.hasOwnProperty(attr);
+}
+```
+
+7. isPrototypeof
+
+
+
+### 原型链模式基础
+>构造函数模式中拥有了类和实例的概念，并且实例和实例之间是相互独立开的，
+
+```javascript
+function CreateJs(name,age){
+    this.name = name;
+    this.age =age;
+
+};
+CreatJs.prototype.write = function(){
+      console.log("my name is"+this.name +",i can js")
+  };
+var  p1 = new Creatjs("zhhang",18);
+var p2 =new CreatJs("li",15);
+
+p1.writeJs ===p2.writeJs  ==>true
+```
+>基于构造函数的原型模式解决了，方法和属性公有问题，把实例之间相同的属性和方法提取成了公有的属性和方法==》方法公有的CreatJs.prototype上即可。
+
+1. 每一个函数数据类型（普通函数，类）都有一个天生自带属性：prototype（原型），并且这个属性是一个对象数据类型的值。
+2. 并且在prototype上浏览器天生给它加了一个属性constructor（构造函数），属性值是当前函数（类）本身。
+3. 每一个对象数据类型(普通对象，实例，prototype)也天生自带一个属性：__proto__，属性值是当前实例所属类的原型（prototype）
