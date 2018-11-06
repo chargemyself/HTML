@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,body{
+            background: black;
+        }
+        #squares{
+            display: block;
+        }
+        .square{
+            position: relative;
+            float: left;
+            background: #fff;
+            margin-left: 10px;
+            margin-bottom: 10px;
+            width: 100px;
+            height: 100px;
+        }
+        .square:hover{
+            background: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <input id="gezi" />
+        <input onclick="create()" type="button" value="构建">
+        <div id="squares"></div>
+    </div>
+    <script type="text/javascript" charset="utf-8">
+        function create() {
+            var squaresNum = document.getElementById('gezi').value
+            var squares = document.getElementById('squares')
+            squares.innerHTML = ''
+            squares.style.width = squaresNum * 110 + 'px'
+            for (var i = 0; i < squaresNum * squaresNum; ++i) {
+                var child = document.createElement('span')
+                child.style.width = 100 + 'px'
+                child.style.height = 100 + 'px'
+                child.setAttribute("class","square")
+                squares.append(child)
+            }
+            var gezis = document.querySelectorAll('.square')
+
+            for (var i = 0; i < gezis.length; ++i) {
+                gezis[i].onclick = function () {
+                    if (this.style.background == 'blue') {
+                        this.style.background = '#fff'
+                        this.onmouseover = function () {
+                            this.style = "color:red;"
+                        }
+                    }else{
+                        this.style.background = 'blue'
+                    }
+                }
+                
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,117 @@
+<!-- 需求：构建一个n*n的各自（n从输入框填写），默认背景颜色都是白色，鼠标指证指上去
+的各自背景底色变成红色，鼠标移开的时候复原。
+2.鼠标点击格子是背景颜色固定为蓝色，指证hover时候也不变红，再次点击是复原成为点击的状态。
+3格子大小可用css控制，底色变色用js实现。 -->
+
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>test</title>
+    <style media="screen">
+      *{padding:0px;
+      margin:0px;}
+
+      .div1{
+        width:30px;
+        height:30px;
+        border:1px solid black;
+        box-sizing:border-box;
+        float:left;
+      }
+
+
+
+    </style>
+
+  </head>
+  <body>
+    <input type="text" value ="请输入正整数">
+    <button type="button" name="button">确定</button>
+    <script type="text/javascript">
+   var objInput =document.getElementsByTagName("input")[0];
+   var objB =document.getElementsByTagName("button")[0];
+   var  n =0;
+  //输入框获取焦点，文字没有。
+  objInput.onfocus =function(){
+    this.value ="";
+  }
+  //  确定按钮点击事件，然后清除页面内容
+   objB.onclick =function(){
+     n =Math.round(objInput.value); //获取n的值。
+     if(typeof n === "number" && n > 0){
+  // 移除页面上的元素，开始生成div
+  document.body.removeChild(objB);
+  document.body.removeChild(objInput);
+  // console.log(n);
+  // 创建div
+  var  smallDiv =document.createElement("div");
+  smallDiv.setAttribute("class","div1")
+  // 获取小格子的长和宽 ,必须然浏览器渲染了，才可以获得高和宽。所以添加到页面。
+  document.body.appendChild(smallDiv);
+  var smallW =parseInt(getComputedStyle(smallDiv).width);
+  var smallH =parseInt(getComputedStyle(smallDiv).height);
+  // console.log(smallW);
+  // console.log(smallH);
+// 创建一个大div用来装小的div，小的div最开始设置了float：left。然后根据小的来设置大的长宽。
+   var bigDiv =document.createElement("div");
+   var bigW = smallW * n;
+   var bigH =smallH * n;
+  //  console.log(bigH);
+ 
+   bigDiv.setAttribute("style","border:1px solid red;");
+   document.body.appendChild(bigDiv);
+   bigDiv.style.width =bigW +"px";
+   bigDiv.style.height =bigH +"px";
+   console.log(bigDiv);
+   //移除为了获取元素创建的小的div
+  document.body.removeChild(smallDiv);
+//每次添加都需要创建，所以需要创建100个div，而且每次设置class为div1
+
+   for(var i =0;i<n*n;i++){
+    var  smallDiv =document.createElement("div");
+       smallDiv.setAttribute("class","div1");
+    bigDiv.appendChild(smallDiv);
+    }
+  // 给bigdiv下面的东西添加点击事件，然后判断这些的。
+  var wholeDiv =bigDiv.getElementsByTagName("div");
+  
+  for(var i = 0;i<wholeDiv.length;i++){
+    wholeDiv[i].onmouseover =function (){
+      // if(this.style.backgroundColor ==="blue"){
+      //   this.style.backgroundColor ="blue";
+      // }else{this.style.backgroundColor ="red";}
+      this.style.backgroundColor ==="blue"?this.style.backgroundColor ="blue":this.style.backgroundColor ="red";
+    }
+    wholeDiv[i].onmouseleave =function(){
+      // if(this.style.backgroundColor ==="blue"){
+      //   this.style.backgroundColor ="blue";
+      // }else{this.style.backgroundColor ="";}
+      this.style.backgroundColor ==="blue"?this.style.backgroundColor ="blue":this.style.backgroundColor ="";
+    }
+    wholeDiv[i].onclick=function(){
+    // if(this.style.backgroundColor ==="red"){
+    //   this.style.backgroundColor ="blue";
+    // }else if(this.style.backgroundColor ==="blue"){
+    //   this.style.backgroundColor =""
+    // }
+    this.style.backgroundColor ==="red"?this.style.backgroundColor ="blue":this.style.backgroundColor ="";
+  }
+  }
+    }else{
+       alert("ipnut again")
+     }
+    
+     
+
+  }// end  obj.onclick
+
+
+
+
+
+    </script>
+
+  </body>
+</html>

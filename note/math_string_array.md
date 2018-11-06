@@ -167,6 +167,20 @@ console.log(orig.trim()); // 'foo'
 
 var orig = 'foo    ';
 console.log(orig.trim()); // 'foo'
+
+```
+
+>String转换为Number有很多种方式，我可以想到的有5种
+```javascript
+parseInt(num); // 默认方式 (没有基数)
+parseInt(num, 10); // 传入基数 (十位数)
+parseFloat(num) // 浮点数
+Number(num); // Number 构造器
+~~num //按位非
+num / 1 // 除一个数
+num * 1 // 乘一个数
+num - 0 // 减去0
++num // 一元运算符 "+"
 ```
 
 
