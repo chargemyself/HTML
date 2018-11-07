@@ -1,6 +1,3 @@
-## 面向对象编程
-
-
 ### 单例模式
 >对象数据类型：据说以前是没有引用数据类型的。把描述同一个事物（同一个对象）的属性和方法放在同一个内存空间下，起到分组的作用，这样不同事物之间的属性即使属性名相同，相互也不会发生冲突。
 >就是一个对象。  
@@ -155,7 +152,7 @@ function hasPubProperty(obj,attr){
 
 
 ### 原型链模式基础
->构造函数模式中拥有了类和实例的概念，并且实例和实例之间是相互独立开的，
+>构造函数模式中拥有了类和实例的概念，并且实例和实例之间是相互独立开的==>实例识别
 
 ```javascript
 function CreateJs(name,age){
@@ -177,5 +174,206 @@ p1.writeJs ===p2.writeJs  ==>true
 2. 并且在prototype上浏览器天生给它加了一个属性constructor（构造函数），属性值是当前函数（类）本身。
 3. 每一个对象数据类型(普通对象，实例，prototype)也天生自带一个属性：__proto__，属性值是当前实例所属类的原型（prototype）
 
+```javascript
+function Fn(){
+    this.x =100;
+}
+Fn.prototype.getx =function(){
+    console.log(this.x)
+    this.sum =function(){};
+}
+var f1 = new Fn;
+var f2 = new Fn;
 
-![原型链](img1/30.png)
+//console.log(Fn.prototype.constructor = Fn )  ==> true;
+f1.getx ===f2.getx  ===>true;
+f1.__proto__.getx === f2.getx ==>true
+f1.getx ===Fn.prototype.getx  ==>true;
+
+f1.sum ===f2.__prototype__sum ==>false;
+f1.sum ===Fn.prototype.sum  ===>false
+
+f1.hasOwnProperty =>f1.__proto__.proto__hasOwnProperty
+//ie浏览器禁止怕我们__proto__把公有的修改，禁止我们使用__proto__
+//f1.sum =function(){//修改自己的私有sum   }；
+//f1.__proto__.sum =function(){
+//     修改所属类的原型上的sum
+// }
+//Fn.prototype.sum =function(){
+//     修改公有sum
+// }
+
+```
+![note](img1/31.png)
+
+>object 是js中所有对象数据类型的基类（最顶层的类）
+1. f1 instanceof Object  -->true 因为f1通过__proto__可以向上级查找，不管多少级，最后总是可以找到Object
+2. 在object.prototype 上没有__proto__这个属性。
+3. f1.hasOwnProperty("x");==>hasOwnProperty 是f1的一个属性。
+>但是我们发现在f1的私有属性并没有这个方法，那如何处理？
++ 通过对象.属性名 的方式获取属性值的时候，，首先在对象的私有属性上进行查找，如果私有中存在这个属性，则获取
+的是私有属性值。
++ 如果私有的没有，则通过__proto__找到所属类的原型（类的原型上定义的属性和方法都是当前实例公有的属性和方法），原型
+上存在的话，获取的是公有属性值。
++ 如果原型上也没有，则继续通过原型上的__proto__继续向上查找，一直找到Object.prototype为止。==》这种查找机制被称为“原型链查找”
+
+
+### 原型链扩展 this
+>在原型链中，this常用有两种情况
++ 在类中this.xxx = xxx;this  当前类的实例。
++ 在一个方法中的this  看执行的时候"."前面试试this
+1. 需要先确定this的指向（this）是谁
+2. 把this替换成对应的代码
+3. 按照原型链查找机制，进行查找。
+```javascript
+function Fn(){
+    this.x = 100;
+    this.y = 200;
+}
+Fn.prototype ={
+    constructor:Fn;
+    y:300,
+    getx:function(){
+        console.log(this.x);
+    }
+    gety:function(){
+        console.log(this.y);
+    }
+};
+var f = new Fn;
+f.getx();   ==》 100；
+f.__proto__.getx  ==》this是f.__proto__==>f.__proto__.x ==>undefined;
+Fn.prototype.getx()===>undefined;
+f.gety() ==>200;
+f.__proto__gety  ===>300
+
+```
+
+
+`链式写法`
+>执行完成数组一个方法可以紧跟着执行下一个方法。
+
+### 如何批量设置公有属性
+1. 起一个别名
+```javascript
+var pro =Fn.prototype; //把原型指向的地址赋值给pro
+```
+
+2. 重构Fn.prototype ={}
++ 只有浏览器天生给fn.prototype 开辟的堆内存里面才有contructor，而我们自己的开辟堆内存没有这个属性。
+>为了和原来的保持一致，我们需要手动的增加constructor的指向。
++ 重构原型对象的方式，自己新开辟一个堆内存，储存我们公有的属性和方法，把浏览器原来的Fn.prototype开辟的那个替换掉。
+>对于替换内置的Array.prototype ，浏览器是自动屏蔽掉的。但是可以一个个修改内置类的方法，如果方法名字和原来方法名字相同，
+就会替代原来的方法。    
+
+
+### 原型继承的6种方式
+
+`一.可枚举和不可枚举`
+> for in 循环在遍历的时候，默认的话可以把自己私有的和它所属类原型上的扩展的属性和方法都可以遍历到，但是一般情况下，我们遍历一个对象只需要遍历私有的即可，我们可以使用以下的判断进行处理。obj.propertyIsEnumerable(key) 或者obj.hasOwnProperty(key)
+
+`二.Object.create(proObj)`
+>方法创建一个新的对象，但是要把proObj作为这个对象的原型 在IE6-8不兼容(ECMAscript5)
+原理：
+```javascript
+function object(o){
+            function Fn(){};
+            Fn.prototype = o;
+            return new Fn;
+        }
+```
+
+
+`六种继承方法`
+1. 原型继承
+```javascript
+function A(){
+            this.x = 100;
+        }
+        A.prototype.getX = function(){
+            console.log(this.x);
+        }
+        function B(){
+            this.y = 200
+        }
+        B.prototype = new A;
+　　　　 B.prototype.constructor = B
+```
+> 原型继承是我们JS中最常用的一种继承方式子类B想要继承父类A中的所有属性和方法（公有+私有），只需要让B.prototype = new A;即可原型继承的特点:它是把父类中私有+公有的都继承到了子类原型上（子类公有的），具体见下图　
+![text](img1/29.png)
+>核心：核心：原型继承并不是把父类中的属性和方法克隆一份一模一样的给B而是让B和A之间增加了原型链的链接，以后B的实例n想要用A中的getX方法，需要一级一级的向上查找来使用。
+
+2. call继承
+>把父类私有的属性和方法克隆一份一模一样的 作为子类私有的属性　
+```javascript
+function A(){
+            this.x = 100;
+        }
+        A.prototype.getX = function(){
+            console.log(this.x);
+        }
+        function B(){
+            A.call(this)//A.call(n) 把A执行让A中的this变成n
+        }
+```
+
+
+3. 冒充对象继承
+```javascript
+function A(){
+            this.x = 100;
+        }
+        A.prototype.getX = function(){
+            console.log(this.x);
+        }
+        function B(){
+            var temp = new A;
+            for(var key in temp){
+                this[key] = temp[key]
+            }
+　　　　　　　temp = null
+        }
+        var n = new B;
+```
+>冒充对象继承：把父类公有+私有的克隆一份一模一样的给子类私有的。
+
+4. 混合继承模式： 原型继承 +call继承（第二常用）
+```javascript
+function A(){
+           this.x = 100;
+       }
+       A.prototype.getX = function(){
+           console.log(this.x);
+       }
+       function B(){
+           A.call(this);
+       }
+       B.prototype = new A;
+       B.prototype.constructor = B;
+```
+>缺点：A执行了两遍，且A中x既有私有属性，又有公有属性
+
+
+5. 寄生组合式继承：解决上面的私有的重复问题
+```javascript
+function A(){
+            this.x = 100;
+        }
+        A.prototype.getX = function(){
+            console.log(this.x);
+        }
+        function B(){
+            A.call(this);
+        }
+        B.prototype = Object.create(A.prototype);//IE6-8不兼容 ,可以自己写一个Object.create方法
+        B.prototype.constructor = B;
+```
+
+
+6. 中间类继承法 ==》不兼容（移动端开发考虑）
+A.__proto__= B.prototype
+
+
+
+### OOP
+
