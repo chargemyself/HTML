@@ -374,6 +374,5 @@ function A(){
 A.__proto__= B.prototype
 
 
-
 ### OOP
 
