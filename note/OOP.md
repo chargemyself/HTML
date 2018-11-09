@@ -186,6 +186,7 @@ var f1 = new Fn;
 var f2 = new Fn;
 
 //console.log(Fn.prototype.constructor = Fn )  ==> true;
+f1.prototype===>uendefined  //其实实例不是一个函数，而是一个对象。
 f1.getx ===f2.getx  ===>true;
 f1.__proto__.getx === f2.getx ==>true
 f1.getx ===Fn.prototype.getx  ==>true;
@@ -203,6 +204,46 @@ f1.hasOwnProperty =>f1.__proto__.proto__hasOwnProperty
 //     修改公有sum
 // }
 
+```
+
+```javascript
+function Fn(){};
+var f1 = new Fn;
+
+// Object instanceof Function
+// true
+// Fn instanceof Function
+// true
+// Fn instanceof Object
+// true
+// Function instanceof Object
+// true
+// f1 instanceof Function
+// false
+// f1 instanceof Object
+// true
+// f1.__proto__ ===Fn.prototype
+// true
+// //函数里面是有一个自带的属性prototype和__proto__的，但是实例里面只有一个__proto__是指向类的prototype。
+// undefined
+// Fn.prototype.__proto__ ===Object.prototype
+// true
+// Fn.__proto__ ===Object.prototype
+// false
+// console.log(f1.prototype)
+// VM1002:1 undefined
+// undefined
+// console.log(Fn.__proto__)
+// VM1068:1 ƒ () { [native code] }
+// undefined
+// dir(Fn.prototype)
+// VM1118:1 Object
+// undefined
+// dir(Fn.__proto__)
+// VM1164:1 ƒ anonymous()
+
+按照我的理解：Fn是一个函数，也是一个对象。
+但是f1只是一个对象。
 ```
 ![note](img1/31.png)
 
@@ -301,7 +342,7 @@ function A(){
 ```
 > 原型继承是我们JS中最常用的一种继承方式子类B想要继承父类A中的所有属性和方法（公有+私有），只需要让B.prototype = new A;即可原型继承的特点:它是把父类中私有+公有的都继承到了子类原型上（子类公有的），具体见下图　
 ![text](img1/29.png)
->核心：核心：原型继承并不是把父类中的属性和方法克隆一份一模一样的给B而是让B和A之间增加了原型链的链接，以后B的实例n想要用A中的getX方法，需要一级一级的向上查找来使用。
+>核心：原型继承并不是把父类中的属性和方法克隆一份一模一样的给B而是让B和A之间增加了原型链的链接，以后B的实例n想要用A中的getX方法，需要一级一级的向上查找来使用。
 
 2. call继承
 >把父类私有的属性和方法克隆一份一模一样的 作为子类私有的属性　
@@ -377,3 +418,142 @@ A.__proto__= B.prototype
 
 ### OOP
 
+# 函数的三种角色
+>所有类都是函数类型。所有函数都自带一个属性：prototype。
+```JavaScript
+dir（Fn)
+函数本身也会有自己一些属性：
+length ：形参的个数
+ name："Fn" 函数名
+ prototype 类的原型，在原型上定义的方法都是当前Fn这个类实例的公有方法
+ __proto__ 把函数当做一个普通的对象，指向Function这个类的原型
+```
+`函数多面性：三者之间没有必然的联系`
++ 　"普通函数":本身就是一个普通的函数，执行的时候会形成私有的作用域（闭包），形参赋值，预解释，代码执行，执行完成后栈内存销毁/不销毁
++ "类"：它有自己的实例，也有一个叫做prototype属性是自己的原型，他的实例都可以指向自己的原型
++ "普通对象":和var obj = {} 中的obj一样，就是一个普通的对象，他作为对象可以有自己的私有的属性，也可以通过__proto__找到Function.prototype
+
+![图解](img1/32.png)
+
+
+```javascript
+function Fn(){
+            var num = 500;
+            this.x = 100;
+        }
+        Fn.prototype.getX = function(){
+            console.log(this.x)
+        }
+        Fn.aaa = 1000;
+        var f = new Fn;
+        f.num //undefined
+        f.aaa//undefined
+        var res = Fn();
+        res//undefined
+        Fn.aaa//1000
+```
+
+
+# 使用不同方法创建的对象的原型链
+`语法结构创建的对象`
+```javascript
+var o = {a: 1};
+
+// o 这个对象继承了Object.prototype上面的所有属性
+// o 自身没有名为 hasOwnProperty 的属性
+// hasOwnProperty 是 Object.prototype 的属性
+// 因此 o 继承了 Object.prototype 的 hasOwnProperty
+// Object.prototype 的原型为 null
+// 原型链如下:
+// o ---> Object.prototype ---> null
+
+var a = ["yo", "whadup", "?"];
+
+// 数组都继承于 Array.prototype
+// (Array.prototype 中包含 indexOf, forEach等方法)
+// 原型链如下:
+// a ---> Array.prototype ---> Object.prototype ---> null
+
+function f(){
+  return 2;
+}
+
+// 函数都继承于Function.prototype
+// (Function.prototype 中包含 call, bind等方法)
+// 原型链如下:
+// f ---> Function.prototype ---> Object.prototype ---> null
+```
+
+`构造器创建的对象`
+```javascript
+在 JavaScript 中，构造器其实就是一个普通的函数。当使用 new 操作符 来作用这个函数时，它就可以被称为构造方法（构造函数）。
+
+
+function Graph() {
+  this.vertices = [];
+  this.edges = [];
+}
+
+Graph.prototype = {
+  addVertex: function(v){
+    this.vertices.push(v);
+  }
+};
+
+var g = new Graph();
+// g是生成的对象,他的自身属性有'vertices'和'edges'.
+// 在g被实例化时,g.[[Prototype]]指向了Graph.prototype.
+```
+
+
+`Object.create 创建的对象`
+```JavaScript
+ECMAScript 5 中引入了一个新方法：Object.create()。可以调用这个方法来创建一个新对象。新对象的原型就是调用 create 方法时传入的第一个参数：
+
+
+var a = {a: 1};
+// a ---> Object.prototype ---> null
+
+var b = Object.create(a);
+// b ---> a ---> Object.prototype ---> null
+console.log(b.a); // 1 (继承而来)
+
+var c = Object.create(b);
+// c ---> b ---> a ---> Object.prototype ---> null
+
+var d = Object.create(null);
+// d ---> null
+console.log(d.hasOwnProperty); // undefined, 因为d没有继承Object.prototype
+```
+
+
+`class 关键字创建的对象`
+```JavaScript
+ECMAScript6 引入了一套新的关键字用来实现 class。使用基于类语言的开发人员会对这  些结构感到熟悉，但它们是不同的。JavaScript 仍然基于原型。这些新的关键字包括  
+ class, constructor，static，extends 和 super。
+
+
+"use strict";
+
+class Polygon {
+  constructor(height, width) {
+    this.height = height;
+    this.width = width;
+  }
+}
+
+class Square extends Polygon {
+  constructor(sideLength) {
+    super(sideLength, sideLength);
+  }
+  get area() {
+    return this.height * this.width;
+  }
+  set sideLength(newLength) {
+    this.height = newLength;
+    this.width = newLength;
+  }
+}
+
+var square = new Square(2);
+```
