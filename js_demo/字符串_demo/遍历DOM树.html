@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>遍历节点树</title>
+</head>
+<body>
+	<h1>遍历DOM树</h1>
+	<p>tip:可以在遍历的回调函数中任意定制需求</p>
+	<div>
+		<ul>
+			<li>123</li>
+			<li>456</li>
+			<li>789</li>
+		</ul>
+
+		<p>hello world</p>
+		<ul>
+			<li>123</li>
+		</ul>
+
+		<div>
+    hello world
+		</div>
+	</div>
+
+<script>
+	// 获取页面中的根节点---根标签
+	var root =document.documentElement; //html
+
+	// 一个推理过程，主要是为了来理解回调函数的。
+	// function forDom(root1){
+	// 	console.log("节点的名字"+node.nodeName)
+
+	// }
+	
+
+	function forDom(roots){
+		// f1(roots);
+		// 获取根节点里面的子节点
+		var children =roots.children;
+		// 调用遍历所有子节点的函数
+		forChildren(children);
+	}
+	function f1(node){
+		console.log("节点的名字"+node.nodeName);
+	}
+
+	// 给我一个子节点，我把这个子节点里面 的所有子节点都显示出来。
+function forChildren(children){
+	// 遍历所有的子节点
+	for(var i =0;i<children.length;i++){
+		var child = children[i];
+		f1(child);
+		//判断下面的 child有没有子节点,有节点就继续遍历
+		child.children && forDom(child);
+	}
+
+}
+
+forDom(root);
+
+// 	函数遍历DOM树，定义函数,根据根节点调用fn函数，显示的是跟节点的名字。
+
+
+
+// 	function  forDom(root1,fn){
+//      fn(root1);
+// 	}
+
+
+// 	forDom(root,function(node){
+
+// 	输入该节点的名字
+// 	console.log("节点的名字："+node.nodeName);
+// 	});  //函数的执行
+
+// 节点：nodeName
+
+
+</script>
+
+
+	
+</body>
+</html>
