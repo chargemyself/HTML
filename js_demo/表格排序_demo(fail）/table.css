@@ -1,0 +1,28 @@
+*{padding: 0px;
+    margin:0px;
+    user-select: none; 
+     /* //文本不可以被选中 */
+    }
+    .wrapper{
+        width:400px;
+        margin:20px auto;
+        border: 1px solid grey;
+        box-shadow: 5px 5px 5px hotpink; 
+        /* //设置背景box的背景颜色 */
+    }
+    .wrapper thead th{width:100px;
+    height:30px;
+    line-height: 30px;
+    text-align: center;
+    background-color: aqua;
+    }
+    .wrapper tbody th{
+        height:20px;
+        line-height: 20px;
+        text-align:center;
+    }
+    .mouse{
+        cursor: pointer;
+        /* 设置鼠标变成小手 */
+    }
+

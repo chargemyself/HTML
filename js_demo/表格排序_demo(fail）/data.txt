@@ -1,0 +1,8 @@
+﻿[{"name":"zhangsan","age":15,"score":28,"sex":0;}
+{"name":"zhangsan1","age":18,"score":29,"sex":1;}
+{"name":"zhangsan2","age":12,"score":34,"sex":1;}
+{"name":"zhangsan3","age":9,"score":80,"sex":0;}
+{"name":"zhangsan4","age":55,"score":79,"sex":1;}
+{"name":"zhangsan5","age":35,"score":43,"sex":1;}
+{"name":"zhangsan6","age":45,"score":55,"sex":0;}
+]
