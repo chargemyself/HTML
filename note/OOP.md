@@ -415,7 +415,6 @@ function A(){
 A.__proto__= B.prototype
 
 
-
 ### OOP
 
 # 函数的三种角色
